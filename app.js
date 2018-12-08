@@ -57,7 +57,7 @@ renderButtons();
     
               // Storing the result item's rating
               var rating = imageUrl[i].rating;
-              var title = imageUrl[i].title;
+            //   var title = imageUrl[i].title;
     
               // Creating a paragraph tag with the result item's rating
               var p = $("<p>").text("Rating: " + rating);
