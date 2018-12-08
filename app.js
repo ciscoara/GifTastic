@@ -57,30 +57,48 @@ renderButtons();
     
               // Storing the result item's rating
               var rating = imageUrl[i].rating;
-            //   var title = imageUrl[i].title;
+             var title = imageUrl[i].title;
     
               // Creating a paragraph tag with the result item's rating
               var p = $("<p>").text("Rating: " + rating);
+              var p1 = $("<p>").text("Title: " + title);
     
               // Creating an image tag
               var gifImage = $("<img>");
-    
+              gifImage.attr("src", imageUrl[i].images.fixed_height_still.url);
+              gifImage.attr("data-state", "still");
+              gifImage.attr("data-still", imageUrl[i].images.fixed_height_still.url);
+              gifImage.addClass("play");
               // Giving the image tag an src attribute of a proprty pulled off the
               // result item
-              gifImage.attr("src", imageUrl[i].images.fixed_height.url);
+              gifImage.attr("data-animate", imageUrl[i].images.fixed_height.url);
     
               // Appending the paragraph and personImage we created to the "gifDiv" div we created
               gifDiv.append(p);
+              gifDiv.append(p1);
               gifDiv.append(gifImage);
     
               // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
               $("#gif-view").prepend(gifDiv);
     
     
-        }}
+        }};
+      })
+        $(document).on("click",".play", function (){
+          var state = $(this).attr("data-state");
+
+          if (state === "still"){
+
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+          } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+          }
+        })
+
         
     
-    });
-})
+    })
 
 

@@ -2,10 +2,11 @@
 div,
 form{
   margin: 10px;
+  background: slategrey;
 }
 button {
     margin: 5px;
 }
-.gifDiv {
+/* .gifDiv {
     width: 200px;
-}
+} */
