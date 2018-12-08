@@ -1,6 +1,6 @@
 //This is my lame array
 
-var  gifs = ["cat", "dog", "bumblebee", "john wick"];
+var  gifs = ["cat", "dog", "bumblebee", "john wick", "batman", "flops"];
 
 
 function renderButtons(){
@@ -53,9 +53,11 @@ renderButtons();
             if (imageUrl[i].rating === "g") {
               // Creating a div for the gif
               var gifDiv = $("<div>");
+              gifDiv.addClass("gifDiv");
     
               // Storing the result item's rating
               var rating = imageUrl[i].rating;
+              var title = imageUrl[i].title;
     
               // Creating a paragraph tag with the result item's rating
               var p = $("<p>").text("Rating: " + rating);
