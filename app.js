@@ -1,6 +1,6 @@
 //This is my lame array
 
-var gifs = ["cat", "dog", "bumblebee", "john wick", "batman", "flops"];
+var gifs = ["cat", "dog", "bumblebee", "john wick", "batman", "flops", "soccer"];
 
 
 function renderButtons() {
