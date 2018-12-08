@@ -1,34 +1,16 @@
-var  gifs= ["cat", "dog", "bumblebee", "john wick"];
+//This is my lame array
 
-// displayMovieInfo function re-renders the HTML to display the appropriate content
-function displayGifInfo() {
+var  gifs = ["cat", "dog", "bumblebee", "john wick"];
 
-  var gifs = $(this).attr("data-name");
-  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=DlgARiNjbZuoPmlJj33TraziRnIcWsEV&limit=10";
-
-  // Creates AJAX call for the specific movie button being clicked
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function(response) {
-
-  });
-
-}
-
-// Function for displaying movie data
 function renderButtons() {
 
-  // Deletes the movies prior to adding new movies
-  // (this is necessary otherwise you will have repeat buttons)
+
   $("#buttons-gif").empty();
-  // Loops through the array of movies
+
   for (var i = 0; i < gifs.length; i++) {
 
-    // Then dynamicaly generates buttons for each movie in the array
-    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
     var a = $("<button>");
-    // Adds a class of movie to our button
+
     a.addClass("btn btn-primary");
     // Added a data-attribute
     a.attr("data-name", gifs[i]);
@@ -37,9 +19,9 @@ function renderButtons() {
     // Added the button to the buttons-view div
     $("#buttons-gif").append(a);
   }
-}
+};
 
-// This function handles events where the add movie button is clicked
+// This function handles events where the add gif button is clicked
 $("#add-gif").on("click", function(event) {
   event.preventDefault();
   // This line of code will grab the input from the textbox
@@ -52,8 +34,51 @@ $("#add-gif").on("click", function(event) {
   renderButtons();
 });
 
-// Adding click event listeners to all elements with a class of "movie"
-$(document).on("click", ".giphy", displayGifInfo);
+$("#buttons-gif").on("click", "button", function(response){
+    var gif = $(this).attr("data-name");
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=DlgARiNjbZuoPmlJj33TraziRnIcWsEV&q=" + gif +"&limit=10";
+  
+    // Creates AJAX call for the specific movie button being clicked
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+    
+    .then(function(response) {
+      console.log(response);
+      var imageUrl = response.data;
+  
+      for (var i = 0; i < imageUrl.length; i++) {
 
-// Calling the renderButtons function to display the intial buttons
-renderButtons();
+        // Only taking action if the photo has an appropriate rating
+        if (imageUrl[i].rating === "g") {
+          // Creating a div for the gif
+          var gifDiv = $("<div>");
+
+          // Storing the result item's rating
+          var rating = imageUrl[i].rating;
+
+          // Creating a paragraph tag with the result item's rating
+          var p = $("<p>").text("Rating: " + rating);
+
+          // Creating an image tag
+          var gifImage = $("<img>");
+
+          // Giving the image tag an src attribute of a proprty pulled off the
+          // result item
+          gifImage.attr("src", imageUrl[i].images.fixed_height.url);
+
+          // Appending the paragraph and personImage we created to the "gifDiv" div we created
+          gifDiv.append(p);
+          gifDiv.append(gifImage);
+
+          // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+          $("#gif-view").prepend(gifDiv);
+
+
+    }}
+    
+
+});
+
+})
